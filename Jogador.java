@@ -11,6 +11,8 @@ public  class Jogador {
    public Jogador(  String cor , int numeroCasa ){
        this.pulaProximaRodada = false;
        this.cor = cor ;
+       this.numeroCasa = numeroCasa;
+       
    }
    
    
@@ -58,7 +60,13 @@ public  class Jogador {
         return soma;
     }
         
-    }
 
+
+
+ @Override
+ public String toString() {
+    return "Jogador: cor=" + cor + ", numeroCasa=" + numeroCasa;
+}
+}
 
 

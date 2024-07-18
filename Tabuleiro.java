@@ -48,8 +48,37 @@ public class Tabuleiro {
         do {
             System.out.println("Selecione os tipos de jogadores da rodada");
             for (int o = 0; o < quantidadeDeJogadores; o++) {
+                System.out.println(jogadores.size());
+                System.out.println(jogadores.get(o).getNumeroCasa());
                System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() + "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
                 int tipoJogador = teclado1.nextInt();
+                String p = jogadores.get(o).getCor();
+                int casas = jogadores.get(o).getNumeroCasa();
+                System.out.println("oi O TAMANHO DO ARRAY ATUAL É :"+ jogadores.size());
+                System.out.println(" A casa é = "+ casas);
+                switch (tipoJogador) {
+                    case 1:
+                        
+                        jogadores.set(o, new JogadorAzarado(p , casas ));
+                        
+                        break;
+                    case 2:
+                       
+                        jogadores.set(o, new JogadorNormal(p, casas ));
+                        break;
+                    case 3:
+                        
+                        jogadores.set(o , new JogadorSortudo(p, casas));
+                        break;
+                    default:
+                        System.out.println("Opção inválida, mantendo jogador atual.");
+                        break;
+                }
+              for (Jogador jogador : jogadores ) {
+                System.out.println(jogador);
+                
+              }
+
                // TrocaJogador(jogadores.get(o), tipoJogador , o  );  O Problema do codigo esta aqui , na troca de jogador 
             }
             
@@ -78,7 +107,7 @@ public class Tabuleiro {
                 removerCorCasa(posicaoAntiga, jogadores.get(a).getCor());
                 adicionarCorCasa(novaPosicao, jogadores.get(a).getCor());
     
-                System.out.println("O jogador " + jogadores.get(a).getCor() + " está agora na casa " + novaPosicao);
+                System.out.println("O jogador " + jogadores.get(a).getCor() + " está agora na casa " + jogadores.get(a).getNumeroCasa());
     
                 verificacaoCasa(novaPosicao, jogadores.get(a));
                 imprimirTabuleiro();
@@ -185,7 +214,7 @@ public class Tabuleiro {
     private void tirarCartaAleatoria(Jogador jogador) {
         Random rand = new Random();
         int tipoAleatorio = rand.nextInt(3) + 1;
-        TrocaJogador(jogador, tipoAleatorio);
+        TrocaJogador(jogador, tipoAleatorio, 1);
         System.out.println("O jogador " + jogador.getCor() + " agora é do tipo " + tiposDeJogador[tipoAleatorio - 1]);
     }
 

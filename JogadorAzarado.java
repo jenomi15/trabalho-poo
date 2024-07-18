@@ -6,7 +6,7 @@ public class JogadorAzarado extends Jogador {
         super(cor , numeroCasa);
         
     }
-
+    
    
 
     @Override
