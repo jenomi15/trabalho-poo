@@ -13,6 +13,7 @@ public class Casa {
     public void adicionarCor(String cor) {
         cores.add(cor);
     }
+   
 
     public void removerCor(String cor) {
         cores.remove(cor);

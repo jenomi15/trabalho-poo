@@ -3,13 +3,13 @@ public  class Jogador {
     private String cor;
     private  String tipo ;
     private int numeroCasa;
-   
+    private boolean pulaProximaRodada;
    
    
    
    
    public Jogador(  String cor , int numeroCasa ){
-    
+       this.pulaProximaRodada = false;
        this.cor = cor ;
    }
    
@@ -41,6 +41,12 @@ public  class Jogador {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    public boolean pulaRodada() {
+        return this.pulaProximaRodada = false;
+    }
+    public void reiniciarPulo() {
+        this.pulaProximaRodada = false;
     }
 
 

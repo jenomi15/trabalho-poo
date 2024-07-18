@@ -32,10 +32,10 @@ public class Main {
         }
 
         tabuleiro.imprimirTabuleiro();
-        teclado.close();
+        
 
-
-
+       tabuleiro.TurnoDoJogo();
+       teclado.close();
 
         
     }
