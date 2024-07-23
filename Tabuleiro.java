@@ -46,67 +46,51 @@ public class Tabuleiro {
     public void TurnoDoJogo() {
         Scanner teclado1 = new Scanner(System.in);
         int quantidadeDeJogadores = jogadores.size();
-        
+    
         do {
             System.out.println("Selecione os tipos de jogadores da rodada");
             for (int o = 0; o < quantidadeDeJogadores; o++) {
-                //System.out.println(jogadores.size());
-                //System.out.println(jogadores.get(o).getNumeroCasa());
-               System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() + "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
+                System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
+                        "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
                 int tipoJogador = teclado1.nextInt();
                 String p = jogadores.get(o).getCor();
                 int casas = jogadores.get(o).getNumeroCasa();
-                //System.out.println("oi O TAMANHO DO ARRAY ATUAL É :"+ jogadores.size());
-                System.out.println(" A casa é = "+ casas);
                 switch (tipoJogador) {
                     case 1:
-                        
-                        jogadores.set(o, new JogadorAzarado(p , casas ));
-                        
+                        jogadores.set(o, new JogadorAzarado(p, casas));
                         break;
                     case 2:
-                       
-                        jogadores.set(o, new JogadorNormal(p, casas ));
+                        jogadores.set(o, new JogadorNormal(p, casas));
                         break;
                     case 3:
-                        
-                        jogadores.set(o , new JogadorSortudo(p, casas));
+                        jogadores.set(o, new JogadorSortudo(p, casas));
                         break;
                     default:
                         System.out.println("Opção inválida, mantendo jogador atual.");
                         break;
                 }
-
-              for (Jogador jogador : jogadores ) {
-                System.out.println(jogador);
-                
-              }
-
-               // TrocaJogador(jogadores.get(o), tipoJogador , o  );  O Problema do codigo esta aqui , na troca de jogador 
+                for (Jogador jogador : jogadores) {
+                    System.out.println(jogador);
+                }
             }
-            
+    
             for (int a = 0; a < quantidadeDeJogadores; a++) {
                 if (jogadores.get(a).pulaRodada()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " está pulando esta rodada.");
                     jogadores.get(a).reiniciarPulo();
                     continue;
                 }
-                
-                System.out.println("Turno do jogador N* " + (a + 1) + " (" + jogadores.get(a).getCor() + "), role os dados.");
-                int resultado = jogadores.get(a).rolarDados();
-                 //System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou " + resultado);
     
+                System.out.println("Turno do jogador N* " + (a + 1) + " (" + jogadores.get(a).getCor() + "), role os dados.");
+                ResultadoDados resultado = jogadores.get(a).rolarDados();
                 int posicaoAntiga = jogadores.get(a).getNumeroCasa();
                 System.out.println(" \n Posição antiga do jogador " + jogadores.get(a).getCor() + ": " + posicaoAntiga);
-                
-                int novaPosicao = posicaoAntiga + resultado;
+    
+                int novaPosicao = posicaoAntiga + resultado.getSoma();
                 System.out.println("\n Nova posição calculada para o jogador " + jogadores.get(a).getCor() + ": " + novaPosicao);
-                
+    
                 jogadores.get(a).setNumeroCasa(novaPosicao);
     
-                // Verificar se a posição foi atualizada corretamente nessa merda
-                // System.out.println("Nova posição após setNumeroCasa para o jogador " + jogadores.get(a).getCor() + ": " + jogadores.get(a).getNumeroCasa());
-                 
                 removerCorCasa(posicaoAntiga, jogadores.get(a).getCor());
                 adicionarCorCasa(novaPosicao, jogadores.get(a).getCor());
     
@@ -117,21 +101,17 @@ public class Tabuleiro {
                 System.out.println(" \n deseja continuar ? \n 1 - sim \n 2 - não ");
                 Scanner teclado3 = new Scanner(System.in);
                 int p = teclado3.nextInt();
-                if (jogadores.get(a).getNumeroCasa() == 40 ){
-                    tabuleiroJogado.get(jogadores.get(a).getNumeroCasa() - 1 ).adicionarCor(jogadores.get(a).getCor());
+                if (jogadores.get(a).getNumeroCasa() > 40) {
+                    tabuleiroJogado.get(39).adicionarCor(jogadores.get(a).getCor());
                 }
-                
-
     
-                // Verificar se o jogador rolou dois dados iguais (não implementado diretamente)
-                // if (resultadoDosDadosSaoIguais) {
-                //     System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou dois dados iguais e joga novamente.");
-                //     a--;  // Permite o jogador a jogar novamente
-                // }
+                if (resultado.isIguais()) {
+                    System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou dois dados iguais e joga novamente.");
+                    a--; // Permite o jogador a jogar novamente
+                }
             }
         } while (!jogoTerminou());
     }
-    
 
 
  
