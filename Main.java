@@ -4,9 +4,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-
+        
         System.out.println("BEM VINDO AO JOGO DE TABULEIRO\nDigite quantos jogadores você quer criar: ");
         int j = teclado.nextInt();
+        while (j < 1 || j > 6) {
+            System.out.println("Número de jogadores inválido. Por favor, selecione um número de jogadores entre 1 e 6.");
+            j = teclado.nextInt();
+        }
         ArrayList<Jogador> jogadores = new ArrayList<>();
         teclado.nextLine();
 

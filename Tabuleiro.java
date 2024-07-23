@@ -75,14 +75,15 @@ public class Tabuleiro {
                     continue; // Passa para o próximo jogador
                 }
             
-                // Resto do código do turno...
-            
                 System.out.println("Turno do jogador N* " + (a + 1) + " (" + jogadores.get(a).getCor() + "), role os dados.");
                 ResultadoDados resultado = jogadores.get(a).rolarDados();
                 int posicaoAntiga = jogadores.get(a).getNumeroCasa();
                 System.out.println(" \n Posição antiga do jogador " + jogadores.get(a).getCor() + ": " + posicaoAntiga);
     
                 int novaPosicao = posicaoAntiga + resultado.getSoma();
+                if (novaPosicao > 39) {
+                    novaPosicao = 39;  // Ajusta para a última casa válida
+                }
                 System.out.println("\n Nova posição calculada para o jogador " + jogadores.get(a).getCor() + ": " + novaPosicao);
     
                 jogadores.get(a).setNumeroCasa(novaPosicao);
@@ -94,13 +95,10 @@ public class Tabuleiro {
     
                 verificacaoCasa(jogadores.get(a).getNumeroCasa(), jogadores.get(a));
                 imprimirTabuleiro();
-                System.out.println(" \n deseja continuar ? \n 1 - sim \n 2 - não ");
+                System.out.println(" \n Deseja continuar ? \n 1 - sim \n 2 - não ");
                 Scanner teclado3 = new Scanner(System.in);
                 int p = teclado3.nextInt();
-                if (jogadores.get(a).getNumeroCasa() > 40) {
-                    tabuleiroJogado.get(39).adicionarCor(jogadores.get(a).getCor());
-                    imprimirTabuleiro();
-                }
+                
     
                 if (resultado.isIguais()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou dois dados iguais e joga novamente.");
@@ -110,6 +108,7 @@ public class Tabuleiro {
     
             y++; // Incrementa o número da rodada
         } while (!jogoTerminou());
+        imprimirTabuleiro();
     }
     
 
@@ -240,7 +239,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
     private boolean jogoTerminou() {
         // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo , E POR ALGUM MOTIVO NA ULTIMA VEZ QUE EU RODEI NAO GANHOU QND PASSOU DO LIMITE
         for (Jogador jogador : jogadores) {
-            if (jogador.getNumeroCasa() >= 39 ) {
+            if (jogador.getNumeroCasa() >= tabuleiroJogado.size() - 1 ) {
                 System.out.println("O jogador " + jogador.getCor() + " venceu!");
                 return true;
             }
