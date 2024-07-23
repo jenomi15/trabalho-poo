@@ -3,22 +3,19 @@ public class Jogador {
     private String cor;
     private String tipo;
     private int numeroCasa;
-    private boolean pulaProximaRodada;
+    protected boolean pulaProximaRodada;
     private int soma;
     private boolean iguais;
 
     // Construtor principal
-    public Jogador(String cor, int numeroCasa) {
+    public Jogador(String cor, int numeroCasa , boolean pulaProximaRodada) {
         this.pulaProximaRodada = false;
         this.cor = cor;
         this.numeroCasa = numeroCasa;
     }
 
-    // Construtor para resultado dos dados
-    public Jogador(int soma, boolean iguais) {
-        this.soma = soma;
-        this.iguais = iguais;
-    }
+    
+  
 
     // Getters e setters
     public int getSoma() {
@@ -69,6 +66,10 @@ public class Jogador {
         this.pulaProximaRodada = false;
     }
 
+    public void pularProximaRodada() {
+        this.pulaProximaRodada = true;
+    }
+
     public ResultadoDados rolarDados() {
         int dado1 = (int) (Math.random() * 6) + 1;
         int dado2 = (int) (Math.random() * 6) + 1;
@@ -82,4 +83,3 @@ public class Jogador {
         return "Jogador: cor=" + cor + ", numeroCasa=" + numeroCasa;
     }
 }
-

@@ -14,7 +14,7 @@ public class Main {
             System.out.println("Digite a cor do " + (i+1)  + "º jogador: ");
             String cor = teclado.nextLine();
 
-            Jogador jogador = new Jogador(cor , 0);
+            Jogador jogador = new Jogador(cor , 0 , false);
 
             jogadores.add(jogador);
         }

@@ -5,15 +5,19 @@ import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Arrays;
+
 
 public class Tabuleiro {
     private ArrayList<Casa> tabuleiroJogado;
     private ArrayList<Jogador> jogadores; 
+    private List<Integer> casasPularRodada;
     private String[] tiposDeJogador = {"Azarado", "Normal", "Sortudo"};
 
     public Tabuleiro(ArrayList<Jogador> jogadores) { 
         this.tabuleiroJogado = new ArrayList<>();
         this.jogadores = jogadores; 
+        this.casasPularRodada = Arrays.asList(10, 25, 38);
     }
 
     public void criacaoDoTabuleiro(int quantidade) {
@@ -29,14 +33,13 @@ public class Tabuleiro {
             System.out.println("Posição inválida");
         }
     }
-    public void removerCorCasa( int posicao , String cor){
-        if (posicao>= 0 && posicao < tabuleiroJogado.size()){
+    
+    public void removerCorCasa(int posicao, String cor) {
+        if (posicao >= 0 && posicao < tabuleiroJogado.size()) {
             tabuleiroJogado.get(posicao).removerCor(cor);
-        }else{
+        } else {
             System.out.println("Posição inválida");
         }
-
-        
     }
 
     public void imprimirTabuleiro() {
@@ -48,24 +51,26 @@ public class Tabuleiro {
     public void TurnoDoJogo() {
         Scanner teclado1 = new Scanner(System.in);
         int quantidadeDeJogadores = jogadores.size();
+        int y = 1; // Inicialize y com um valor apropriado
     
         do {
-            System.out.println("Selecione os tipos de jogadores da rodada");
+            System.out.println("Selecione os tipos de jogadores da rodada " + y);
             for (int o = 0; o < quantidadeDeJogadores; o++) {
                 System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
                         "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
                 int tipoJogador = teclado1.nextInt();
                 String p = jogadores.get(o).getCor();
                 int casas = jogadores.get(o).getNumeroCasa();
+                
                 switch (tipoJogador) {
                     case 1:
-                        jogadores.set(o, new JogadorAzarado(p, casas));
+                        jogadores.set(o, new JogadorAzarado(p, casas , jogadores.get(o).pulaRodada() ));
                         break;
                     case 2:
-                        jogadores.set(o, new JogadorNormal(p, casas));
+                        jogadores.set(o, new JogadorNormal(p, casas , jogadores.get(o).pulaRodada()));
                         break;
                     case 3:
-                        jogadores.set(o, new JogadorSortudo(p, casas));
+                        jogadores.set(o, new JogadorSortudo(p, casas, jogadores.get(o).pulaRodada()));
                         break;
                     default:
                         System.out.println("Opção inválida, mantendo jogador atual.");
@@ -80,8 +85,12 @@ public class Tabuleiro {
                 if (jogadores.get(a).pulaRodada()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " está pulando esta rodada.");
                     jogadores.get(a).reiniciarPulo();
-                    continue;
+                    continue; // Passa para o próximo jogador
                 }
+            
+                // Resto do código do turno...
+            
+            
     
                 System.out.println("Turno do jogador N* " + (a + 1) + " (" + jogadores.get(a).getCor() + "), role os dados.");
                 ResultadoDados resultado = jogadores.get(a).rolarDados();
@@ -105,6 +114,7 @@ public class Tabuleiro {
                 int p = teclado3.nextInt();
                 if (jogadores.get(a).getNumeroCasa() > 40) {
                     tabuleiroJogado.get(39).adicionarCor(jogadores.get(a).getCor());
+                    imprimirTabuleiro();
                 }
     
                 if (resultado.isIguais()) {
@@ -112,23 +122,25 @@ public class Tabuleiro {
                     a--; // Permite o jogador a jogar novamente
                 }
             }
+    
+            y++; // Incrementa o número da rodada
         } while (!jogoTerminou());
     }
-
+    
 
  
     
 
     public void TrocaJogador(Jogador jogador, int tipoJogador, int a) {
         int numeroCasaAtual = jogador.getNumeroCasa();
-        Jogador novoJogador  = new Jogador(jogador.getCor() , jogador.getNumeroCasa() );
+        Jogador novoJogador  = new Jogador(jogador.getCor() , jogador.getNumeroCasa() , jogador.pulaRodada() );
     
         if (tipoJogador == 1) {
-            novoJogador = new JogadorAzarado(jogador.getCor(), numeroCasaAtual);
+            novoJogador = new JogadorAzarado(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
         } else if (tipoJogador == 2) {
-            novoJogador = new JogadorNormal(jogador.getCor(), numeroCasaAtual);
+            novoJogador = new JogadorNormal(jogador.getCor(), numeroCasaAtual,jogador.pulaRodada());
         } else if (tipoJogador == 3) {
-            novoJogador = new JogadorSortudo(jogador.getCor(), numeroCasaAtual);
+            novoJogador = new JogadorSortudo(jogador.getCor(), numeroCasaAtual,jogador.pulaRodada());
         } else {
             System.out.println("Tipo de jogador inválido");
             return;
@@ -198,11 +210,10 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
     }
 
 
-
     public void verificacaoCasa(int numeroDaCasa, Jogador jogador) {
         if (numeroDaCasa == 10 || numeroDaCasa == 25 || numeroDaCasa == 38) {
             System.out.println("O jogador não joga na próxima rodada.");
-            jogador.pulaRodada();
+            jogador.pularProximaRodada();
         } else if (numeroDaCasa == 13) {
             System.out.println("Casa surpresa! O jogador deve tirar uma carta.");
             tirarCartaAleatoria(jogador);
@@ -212,17 +223,16 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
                 tabuleiroJogado.get(numeroDaCasa).removerCor(jogador.getCor());
                 jogador.setNumeroCasa(jogador.getNumeroCasa() + 3);
                 tabuleiroJogado.get(jogador.getNumeroCasa()).adicionarCor(jogador.getCor());
-                
-                
             }
         } else if (numeroDaCasa == 17 || numeroDaCasa == 27) {
             System.out.println("O jogador escolhe um competidor para voltar ao início.");
             escolherCompetidorVoltarInicio(jogador);
         } else if (numeroDaCasa == 20 || numeroDaCasa == 35) {
             System.out.println("Casa mágica! O jogador troca de lugar com o último jogador.");
-            trocarDeLugarComUltimo(jogador  );
+            trocarDeLugarComUltimo(jogador);
         }
     }
+    
 
 
 
