@@ -51,31 +51,18 @@ public class Tabuleiro {
     public void TurnoDoJogo() {
         Scanner teclado1 = new Scanner(System.in);
         int quantidadeDeJogadores = jogadores.size();
-        int y = 1; // Inicialize y com um valor apropriado
-    
+        int y = 1; // Inicializa y com um valor apropriado
+        
         do {
             System.out.println("Selecione os tipos de jogadores da rodada " + y);
             for (int o = 0; o < quantidadeDeJogadores; o++) {
                 System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
                         "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
                 int tipoJogador = teclado1.nextInt();
-                String p = jogadores.get(o).getCor();
-                int casas = jogadores.get(o).getNumeroCasa();
                 
-                switch (tipoJogador) {
-                    case 1:
-                        jogadores.set(o, new JogadorAzarado(p, casas , jogadores.get(o).pulaRodada() ));
-                        break;
-                    case 2:
-                        jogadores.set(o, new JogadorNormal(p, casas , jogadores.get(o).pulaRodada()));
-                        break;
-                    case 3:
-                        jogadores.set(o, new JogadorSortudo(p, casas, jogadores.get(o).pulaRodada()));
-                        break;
-                    default:
-                        System.out.println("Opção inválida, mantendo jogador atual.");
-                        break;
-                }
+                // Troca o tipo do jogador usando o método TrocaJogador
+                TrocaJogador(jogadores.get(o), tipoJogador, o);
+                
                 for (Jogador jogador : jogadores) {
                     System.out.println(jogador);
                 }
@@ -90,8 +77,6 @@ public class Tabuleiro {
             
                 // Resto do código do turno...
             
-            
-    
                 System.out.println("Turno do jogador N* " + (a + 1) + " (" + jogadores.get(a).getCor() + "), role os dados.");
                 ResultadoDados resultado = jogadores.get(a).rolarDados();
                 int posicaoAntiga = jogadores.get(a).getNumeroCasa();
@@ -130,27 +115,33 @@ public class Tabuleiro {
 
  
     
-
     public void TrocaJogador(Jogador jogador, int tipoJogador, int a) {
         int numeroCasaAtual = jogador.getNumeroCasa();
-        Jogador novoJogador  = new Jogador(jogador.getCor() , jogador.getNumeroCasa() , jogador.pulaRodada() );
+        Jogador novoJogador;
     
-        if (tipoJogador == 1) {
-            novoJogador = new JogadorAzarado(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
-        } else if (tipoJogador == 2) {
-            novoJogador = new JogadorNormal(jogador.getCor(), numeroCasaAtual,jogador.pulaRodada());
-        } else if (tipoJogador == 3) {
-            novoJogador = new JogadorSortudo(jogador.getCor(), numeroCasaAtual,jogador.pulaRodada());
-        } else {
-            System.out.println("Tipo de jogador inválido");
-            return;
+        // Cria o novo jogador com base no tipo selecionado
+        switch (tipoJogador) {
+            case 1:
+                novoJogador = new JogadorAzarado(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
+                break;
+            case 2:
+                novoJogador = new JogadorNormal(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
+                break;
+            case 3:
+                novoJogador = new JogadorSortudo(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
+                break;
+            default:
+                System.out.println("Tipo de jogador inválido");
+                return;
         }
     
+        // Substitui o jogador atual pelo novo jogador na lista
         int index = jogadores.indexOf(jogador);
         if (index != -1) {
             jogadores.set(index, novoJogador);
         }
     }
+    
     
     
 
@@ -249,7 +240,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
     private boolean jogoTerminou() {
         // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo , E POR ALGUM MOTIVO NA ULTIMA VEZ QUE EU RODEI NAO GANHOU QND PASSOU DO LIMITE
         for (Jogador jogador : jogadores) {
-            if (jogador.getNumeroCasa() >= tabuleiroJogado.size()) {
+            if (jogador.getNumeroCasa() >= 39 ) {
                 System.out.println("O jogador " + jogador.getCor() + " venceu!");
                 return true;
             }
