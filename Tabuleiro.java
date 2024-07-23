@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class Tabuleiro {
     private ArrayList<Casa> tabuleiroJogado;
@@ -144,35 +146,43 @@ public class Tabuleiro {
 
     
     
-    private void trocarDeLugarComUltimo(Jogador jogador) {
-        // Encontra o jogador com o menor número de casa blud gusta
-        Jogador ultimoJogador = Collections.min(jogadores, Comparator.comparingInt(Jogador::getNumeroCasa));
-    
-        
-        if (jogador != ultimoJogador) {
-            
-            int posicaoAtual = jogador.getNumeroCasa();
-            jogador.setNumeroCasa(ultimoJogador.getNumeroCasa());
-            ultimoJogador.setNumeroCasa(posicaoAtual);
-    
-            tabuleiroJogado.get(jogador.getNumeroCasa()).removerCor(ultimoJogador.getCor());
-            tabuleiroJogado.get(posicaoAtual).removerCor(jogador.getCor());
-            tabuleiroJogado.get(jogador.getNumeroCasa()).adicionarCor(jogador.getCor());
-            tabuleiroJogado.get(ultimoJogador.getNumeroCasa()).adicionarCor(ultimoJogador.getCor());
+   private void trocarDeLugarComUltimo(Jogador jogador) {
+    List<Jogador> ultimosJogadores = jogadores.stream()
+        .filter(j -> j.getNumeroCasa() == Collections.min(jogadores, Comparator.comparingInt(Jogador::getNumeroCasa)).getNumeroCasa())
+        .collect(Collectors.toList());
 
+    Jogador ultimoJogador;
 
-
-
-    
-            System.out.println("O jogador " + jogador.getCor() + " trocou de posição com o jogador " + ultimoJogador.getCor());
-        } else {
-           
-            System.out.println("O jogador já está na última posição e não pode trocar!");
-        }
+    if (ultimosJogadores.size() > 1) {
+        ultimoJogador = escolherAleatoriamente(ultimosJogadores);
+    } else {
+        ultimoJogador = ultimosJogadores.get(0);
     }
 
+    if (jogador != ultimoJogador) {
+        int posicaoAtual = jogador.getNumeroCasa();
+        jogador.setNumeroCasa(ultimoJogador.getNumeroCasa());
+        ultimoJogador.setNumeroCasa(posicaoAtual);
+
+        tabuleiroJogado.get(jogador.getNumeroCasa()).removerCor(ultimoJogador.getCor());
+        tabuleiroJogado.get(posicaoAtual).removerCor(jogador.getCor());
+        tabuleiroJogado.get(jogador.getNumeroCasa()).adicionarCor(jogador.getCor());
+        tabuleiroJogado.get(ultimoJogador.getNumeroCasa()).adicionarCor(ultimoJogador.getCor());
+
+        System.out.println("O jogador " + jogador.getCor() + " trocou de posição com o jogador " + ultimoJogador.getCor());
+    } else {
+        System.out.println("O jogador já está na última posição e não pode trocar!");
+    }
+}
+
+private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
+    Random random = new Random();
+    return jogadores.get(random.nextInt(jogadores.size()));
+}
 
 
+
+    // errinho aqui na questao de quando as vezes voltamos um jogador , outro vai para o inicio , mas apenas na impressao , provavelmente na ultima linha 
     private void escolherCompetidorVoltarInicio(Jogador jogador) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escolha um competidor para voltar ao início:");
@@ -183,8 +193,8 @@ public class Tabuleiro {
         tabuleiroJogado.get(jogadores.get(escolha - 1 ).getNumeroCasa()).removerCor(jogadores.get(escolha-1).getCor());
         jogadores.get(escolha - 1).setNumeroCasa(0);
         System.out.println("O jogador " + jogadores.get(escolha - 1).getCor() + " voltou para o início!");
-        tabuleiroJogado.get(0).adicionarCor(jogador.getCor());
-            
+        tabuleiroJogado.get(0).adicionarCor(jogadores.get(escolha-1).getCor()); // aqui oh 
+                                                        // antes tava jogador.getcor() KKKK
     }
 
 
@@ -227,7 +237,7 @@ public class Tabuleiro {
     }
 
     private boolean jogoTerminou() {
-        // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo.
+        // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo , E POR ALGUM MOTIVO NA ULTIMA VEZ QUE EU RODEI NAO GANHOU QND PASSOU DO LIMITE
         for (Jogador jogador : jogadores) {
             if (jogador.getNumeroCasa() >= tabuleiroJogado.size()) {
                 System.out.println("O jogador " + jogador.getCor() + " venceu!");
