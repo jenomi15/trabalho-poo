@@ -65,7 +65,8 @@ public class Casa {
       //  sb.append("+--------------------+");
        // return sb.toString();
   //  }
-//}
+//}  
+// ACONSELHO PARA A AVALIACAO DO TRABALHO USAR  O DE BAIXO
 
 
 @Override

@@ -29,7 +29,7 @@ public class JogadorAzarado extends Jogador {
         return "Jogador Azarado: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
     }
     
-
+    
 
 }
 

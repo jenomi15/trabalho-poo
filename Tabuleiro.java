@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -64,8 +63,15 @@ public class Tabuleiro {
                 for (int o = 0; o < quantidadeDeJogadores; o++) {
                     System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
                             "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
-                    int tipoJogador = teclado1.nextInt();
-                    
+                            int tipoJogador = teclado1.nextInt();
+                    if (tipoJogador < 1 || tipoJogador > 3 ){
+                    do{
+                        System.out.println(" voçê selecionou um tipo inválido , por favor , digite corretamente");
+                        tipoJogador = teclado1.nextInt();
+
+
+                    }while(tipoJogador < 1 || tipoJogador > 3);
+                }
                     // Troca o tipo do jogador usando o método TrocaJogador
                     TrocaJogador(jogadores.get(o), tipoJogador, o);
                 }
@@ -78,8 +84,27 @@ public class Tabuleiro {
                 }
                 
             } while (!tiposDiversos);
-
+    
             for (int a = 0; a < quantidadeDeJogadores; a++) {
+                if (jogoTerminou()) {
+
+                    Collections.sort(jogadores, new Comparator<Jogador>() {
+                        @Override
+                        public int compare(Jogador j1, Jogador j2) {
+                            return Integer.compare(j2.getNumeroCasa(), j1.getNumeroCasa());
+                        }
+                    });
+    
+                    System.out.println("Posições dos jogadores:");
+                    for (int w = 0; w < jogadores.size(); w++) {
+                        Jogador jogador = jogadores.get(w);
+                        System.out.println((w + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
+                    }
+                    return; // Sai do método se o jogo terminou
+                }
+
+
+    
                 if (jogadores.get(a).pulaRodada()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " está pulando esta rodada.");
                     jogadores.get(a).reiniciarPulo();
@@ -109,7 +134,11 @@ public class Tabuleiro {
                 System.out.println(" \n Deseja continuar ? \n 1 - sim \n 2 - não ");
                 Scanner teclado3 = new Scanner(System.in);
                 int p = teclado3.nextInt();
-                
+                   if (  p == 2 ){
+                    teclado3.close();
+                    return ;
+
+                   }
     
                 if (resultado.isIguais()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou dois dados iguais e joga novamente.");
@@ -119,20 +148,21 @@ public class Tabuleiro {
     
             y++; // aumenta o número da rodada
         } while (!jogoTerminou());
-
+    
         Collections.sort(jogadores, new Comparator<Jogador>() {
             @Override
             public int compare(Jogador j1, Jogador j2) {
                 return Integer.compare(j2.getNumeroCasa(), j1.getNumeroCasa());
             }
         });
-
+    
         System.out.println("Posições dos jogadores:");
         for (int i = 0; i < jogadores.size(); i++) {
             Jogador jogador = jogadores.get(i);
             System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
         }
     }
+    
         
     
     
@@ -217,6 +247,13 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
             System.out.println((i + 1) + " - " + jogadores.get(i).getCor());
         }
         int escolha = scanner.nextInt();
+        if ( escolha < 1 || escolha > jogadores.size() - 1 ){
+           do{
+         System.out.println("escolha um jogador válido , por obsequio");
+           }while( escolha < 1 || escolha < jogadores.size() - 1);
+        }
+
+
         tabuleiroJogado.get(jogadores.get(escolha - 1 ).getNumeroCasa()).removerCor(jogadores.get(escolha-1).getCor());
         jogadores.get(escolha - 1).setNumeroCasa(0);
         System.out.println("O jogador " + jogadores.get(escolha - 1).getCor() + " voltou para o início!");
@@ -278,3 +315,4 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
         return false;
     }
 }
+
