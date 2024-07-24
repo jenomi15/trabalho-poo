@@ -1,4 +1,4 @@
-public class Jogador {
+public class Jogador  implements Comparable<Jogador> {
     private String nome;
     private String cor;
     private String tipo;
@@ -7,7 +7,7 @@ public class Jogador {
     private int soma;
     private boolean iguais;
 
-    // Construtor principal
+   
     public Jogador(String cor, int numeroCasa , boolean pulaProximaRodada) {
         this.pulaProximaRodada = false;
         this.cor = cor;
@@ -17,7 +17,7 @@ public class Jogador {
     
   
 
-    // Getters e setters
+    
     public int getSoma() {
         return soma;
     }
@@ -81,5 +81,14 @@ public class Jogador {
     @Override
     public String toString() {
         return "Jogador: cor=" + cor + ", numeroCasa=" + numeroCasa;
+    }
+
+
+
+
+
+    @Override
+    public int compareTo(Jogador outroJogador) {
+        return Integer.compare(outroJogador.getNumeroCasa(), this.numeroCasa);
     }
 }

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -102,14 +103,29 @@ public class Tabuleiro {
     
                 if (resultado.isIguais()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " rolou dois dados iguais e joga novamente.");
-                    a--; // Permite o jogador a jogar novamente
+                    a--; // o corno joga de novo
                 }
             }
     
             y++; // Incrementa o número da rodada
         } while (!jogoTerminou());
-        imprimirTabuleiro();
+        // so ordena msm
+           Collections.sort(jogadores, new Comparator<Jogador>() {
+           @Override
+             public int compare(Jogador j1, Jogador j2) {
+               return Integer.compare(j2.getNumeroCasa(), j1.getNumeroCasa());
+            }
+        });
+
+   
+    System.out.println("Posições dos jogadores:");
+    for (int i = 0; i < jogadores.size(); i++) {
+        Jogador jogador = jogadores.get(i);
+        System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
     }
+}
+        
+    
     
 
  

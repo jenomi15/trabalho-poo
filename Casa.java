@@ -50,7 +50,7 @@ public class Casa {
 
     @Override
     public String toString() {
-        return "Casa " +  numero   + " -> Cores: " + cores;
+        return "Casa " +  (numero +1)  + " -> Cores: " + cores;
         // se quiser imprimir da casa 1 a 40 eh so colocar (numero + 1)
     }
 }
