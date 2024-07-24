@@ -2,9 +2,11 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Arrays;
 
@@ -55,20 +57,28 @@ public class Tabuleiro {
         int y = 1; // Inicializa y com um valor apropriado
         
         do {
-            System.out.println("Selecione os tipos de jogadores da rodada " + y);
-            for (int o = 0; o < quantidadeDeJogadores; o++) {
-                System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
-                        "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
-                int tipoJogador = teclado1.nextInt();
-                
-                // Troca o tipo do jogador usando o método TrocaJogador
-                TrocaJogador(jogadores.get(o), tipoJogador, o);
-                
-                for (Jogador jogador : jogadores) {
-                    System.out.println(jogador);
+            boolean tiposDiversos;
+            do {
+                tiposDiversos = true;
+                System.out.println("Selecione os tipos de jogadores da rodada " + y);
+                for (int o = 0; o < quantidadeDeJogadores; o++) {
+                    System.out.println("Você está selecionando o jogador " + jogadores.get(o).getCor() +
+                            "\nDigite 1 para ele ser Azarado\n2 para ele ser Normal\n3 para ele ser Sortudo");
+                    int tipoJogador = teclado1.nextInt();
+                    
+                    // Troca o tipo do jogador usando o método TrocaJogador
+                    TrocaJogador(jogadores.get(o), tipoJogador, o);
                 }
-            }
-    
+
+                // Verifica a diversidade de tipos de jogadores
+                if (!verificarDiversidadeTipos()) {
+                    tiposDiversos = false;
+                    System.out.println("Os tipos de jogadores não são diversos o suficiente. " +
+                                       "Haverá pelo menos dois tipos diferentes de jogadores.");
+                }
+                
+            } while (!tiposDiversos);
+
             for (int a = 0; a < quantidadeDeJogadores; a++) {
                 if (jogadores.get(a).pulaRodada()) {
                     System.out.println("O jogador " + jogadores.get(a).getCor() + " está pulando esta rodada.");
@@ -107,23 +117,22 @@ public class Tabuleiro {
                 }
             }
     
-            y++; // Incrementa o número da rodada
+            y++; // aumenta o número da rodada
         } while (!jogoTerminou());
-        // so ordena msm
-           Collections.sort(jogadores, new Comparator<Jogador>() {
-           @Override
-             public int compare(Jogador j1, Jogador j2) {
-               return Integer.compare(j2.getNumeroCasa(), j1.getNumeroCasa());
+
+        Collections.sort(jogadores, new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1, Jogador j2) {
+                return Integer.compare(j2.getNumeroCasa(), j1.getNumeroCasa());
             }
         });
 
-   
-    System.out.println("Posições dos jogadores:");
-    for (int i = 0; i < jogadores.size(); i++) {
-        Jogador jogador = jogadores.get(i);
-        System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
+        System.out.println("Posições dos jogadores:");
+        for (int i = 0; i < jogadores.size(); i++) {
+            Jogador jogador = jogadores.get(i);
+            System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
+        }
     }
-}
         
     
     
@@ -134,7 +143,7 @@ public class Tabuleiro {
         int numeroCasaAtual = jogador.getNumeroCasa();
         Jogador novoJogador;
     
-        // Cria o novo jogador com base no tipo selecionado
+        // Cria o novo jogador  no tipo selecionado pelo mano
         switch (tipoJogador) {
             case 1:
                 novoJogador = new JogadorAzarado(jogador.getCor(), numeroCasaAtual, jogador.pulaRodada());
@@ -150,7 +159,7 @@ public class Tabuleiro {
                 return;
         }
     
-        // Substitui o jogador atual pelo novo jogador na lista
+        // troca o jogador atual pelo novo jogador na lista
         int index = jogadores.indexOf(jogador);
         if (index != -1) {
             jogadores.set(index, novoJogador);
@@ -238,8 +247,14 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
             trocarDeLugarComUltimo(jogador);
         }
     }
-    
-
+    private boolean verificarDiversidadeTipos() {
+        Set<Integer> tipos = new HashSet<>();
+        for (Jogador jogador : jogadores) {
+            tipos.add(jogador.getTipo());
+        }
+        // Verifica se há pelo menos dois tipos diferentes
+        return tipos.size() > 1;
+    }
 
 
 

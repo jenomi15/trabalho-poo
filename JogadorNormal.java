@@ -2,10 +2,12 @@
 import java.util.Random;
 
 public class JogadorNormal extends Jogador {
-
+    
+    private String Normal; 
     public JogadorNormal(String cor, int numeroCasa ,boolean pulaProximaRodada) {
         super(cor, numeroCasa,pulaProximaRodada);
         this.pulaProximaRodada = pulaProximaRodada;
+        setTipo(2);
     }
 
     @Override

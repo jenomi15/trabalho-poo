@@ -1,10 +1,12 @@
 import java.util.Random;
 
 public class JogadorAzarado extends Jogador {
-
-    public JogadorAzarado(String cor, int numeroCasa , boolean pulaProximaRodada) {
+      
+      private String Azarado; 
+    public JogadorAzarado(String cor, int numeroCasa , boolean pulaProximaRodada ) {
         super(cor, numeroCasa,pulaProximaRodada);
         this.pulaProximaRodada = pulaProximaRodada;
+        setTipo(1);
     }
 
     @Override
@@ -26,5 +28,8 @@ public class JogadorAzarado extends Jogador {
     public String toString() {
         return "Jogador Azarado: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
     }
+    
+
+
 }
 

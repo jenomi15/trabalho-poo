@@ -49,21 +49,29 @@ public class Casa {
 
 
   
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Casa ").append(numero) .append(":\n");
-        sb.append("+--------------------+\n");
-        if (cores.isEmpty()) {
-            sb.append("|       Vazia       |\n");
-        } else {
-            sb.append("| Cores:            |\n");
-            for (String cor : cores) {
-                sb.append("| ").append(String.format("%-18s", cor)).append("|\n");
-            }
-        }
-        sb.append("+--------------------+");
-        return sb.toString();
-    }
-}
+   // @Override
+   // public String toString() {
+      // StringBuilder sb = new StringBuilder();
+     //   sb.append("Casa ").append(numero) .append(":\n");
+       // sb.append("+--------------------+\n");
+      // if (cores.isEmpty()) {
+         //  sb.append("|       Vazia       |\n");
+       // } else {
+        //    sb.append("| Cores:            |\n");
+         //  for (String cor : cores) {
+           //     sb.append("| ").append(String.format("%-18s", cor)).append("|\n");
+          //  }
+     //   }
+      //  sb.append("+--------------------+");
+       // return sb.toString();
+  //  }
+//}
 
+
+@Override
+public String toString() {
+    return "Casa " +  numero   + " -> Cores: " + cores;
+    
+    // se quiser imprimir da casa 1 a 40 eh so colocar (numero + 1)
+}
+}

@@ -1,11 +1,12 @@
 public class Jogador  implements Comparable<Jogador> {
     private String nome;
     private String cor;
-    private String tipo;
+    private int tipo;
     private int numeroCasa;
     protected boolean pulaProximaRodada;
     private int soma;
     private boolean iguais;
+   
 
    
     public Jogador(String cor, int numeroCasa , boolean pulaProximaRodada) {
@@ -42,8 +43,8 @@ public class Jogador  implements Comparable<Jogador> {
         return cor;
     }
 
-    public String getTipo() {
-        return tipo;
+    public int getTipo() {
+        return this.tipo;
     }
 
     public int getNumeroCasa() {
@@ -54,7 +55,7 @@ public class Jogador  implements Comparable<Jogador> {
         this.numeroCasa = numeroCasa;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
