@@ -6,6 +6,23 @@ public class Jogador  implements Comparable<Jogador> {
     protected boolean pulaProximaRodada;
     private int soma;
     private boolean iguais;
+    public int getNumeroDeJogadas() {
+        return numeroDeJogadas;
+    }
+
+
+
+
+
+    public void setNumeroDeJogadas(int numeroDeJogadas) {
+        this.numeroDeJogadas = numeroDeJogadas;
+    }
+
+
+
+
+
+    protected int numeroDeJogadas;
    
 
    
@@ -13,6 +30,8 @@ public class Jogador  implements Comparable<Jogador> {
         this.pulaProximaRodada = false;
         this.cor = cor;
         this.numeroCasa = numeroCasa;
+        this.numeroDeJogadas = 0;
+
     }
 
     

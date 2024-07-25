@@ -3,9 +3,11 @@ import java.util.Random;
 public class JogadorAzarado extends Jogador {
       
       private String Azarado; 
-    public JogadorAzarado(String cor, int numeroCasa , boolean pulaProximaRodada ) {
+    public JogadorAzarado(String cor, int numeroCasa , boolean pulaProximaRodada , int numeroDeJogadas ) {
         super(cor, numeroCasa,pulaProximaRodada);
         this.pulaProximaRodada = pulaProximaRodada;
+        this.numeroDeJogadas = numeroDeJogadas;
+        
         setTipo(1);
     }
 

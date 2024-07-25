@@ -4,9 +4,10 @@ import java.util.Random;
 public class JogadorNormal extends Jogador {
     
     private String Normal; 
-    public JogadorNormal(String cor, int numeroCasa ,boolean pulaProximaRodada) {
+    public JogadorNormal(String cor, int numeroCasa ,boolean pulaProximaRodada , int numeroDeJogadas) {
         super(cor, numeroCasa,pulaProximaRodada);
         this.pulaProximaRodada = pulaProximaRodada;
+        this.numeroDeJogadas = numeroDeJogadas;
         setTipo(2);
     }
 
