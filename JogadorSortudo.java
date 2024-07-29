@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class JogadorSortudo extends Jogador {
-    private  String tipo ;
+   
     private String Sortudo; 
     public JogadorSortudo(String cor, int numeroCasa , boolean pulaProximaRodada , int numeroDeJogadas) {
         super(cor, numeroCasa,pulaProximaRodada);
