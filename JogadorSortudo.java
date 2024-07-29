@@ -23,7 +23,7 @@ public class JogadorSortudo extends Jogador {
             System.out.println("O dado 1 rolou: " + dado1);
             System.out.println("O dado 2 rolou: " + dado2);
             System.out.println("a soma dos dados : "+ soma );
-        } while (soma < 6); // Continua rolando até a soma ser maior ou igual a 6
+        } while (soma < 7); // Continua rolando até a soma ser maior ou igual a 6
         
         
         boolean iguais = (dado1 == dado2);
@@ -35,6 +35,6 @@ public class JogadorSortudo extends Jogador {
     @Override
     public String toString() {
         
-        return "Jogador Sortudo: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
+        return "Jogador Sortudo: cor=" + getCor() + ",e o numero da Casa=" + getNumeroCasa();
     }
 }

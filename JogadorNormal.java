@@ -32,7 +32,7 @@ public class JogadorNormal extends Jogador {
     @Override
     public String toString() {
        
-        return "Jogador Normal: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
+        return "Jogador Normal: cor=" + getCor() + ", e o numeroda Casa=" + getNumeroCasa();
     }
 }
 

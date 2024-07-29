@@ -29,7 +29,7 @@ public class JogadorAzarado extends Jogador {
 
     @Override
     public String toString() {
-        return "Jogador Azarado: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
+        return "Jogador Azarado: cor=" + getCor() + ", e o numero da Casa=" + getNumeroCasa();
     }
     
     

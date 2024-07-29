@@ -126,8 +126,8 @@ public class Tabuleiro {
                 removerCorCasa(posicaoAntiga, jogadores.get(a).getCor());
                 adicionarCorCasa(novaPosicao, jogadores.get(a).getCor());
     
-                System.out.println("O jogador " + jogadores.get(a).getCor() + " está agora na casa " + jogadores.get(a).getNumeroCasa());
-    
+               // System.out.println("O jogador " + jogadores.get(a).getCor() + " está agora na casa " + jogadores.get(a).getNumeroCasa());
+                 System.out.println(jogadores.get(a));
                 verificacaoCasa(jogadores.get(a).getNumeroCasa(), jogadores.get(a));
                 imprimirTabuleiro();
                 jogadores.get(a).setNumeroDeJogadas(  jogadores.get(a).getNumeroDeJogadas() +1  );
