@@ -13,13 +13,12 @@ import java.util.Arrays;
 public class Tabuleiro {
     private ArrayList<Casa> tabuleiroJogado;
     private ArrayList<Jogador> jogadores; 
-    private List<Integer> casasPularRodada;
     private String[] tiposDeJogador = {"Azarado", "Normal", "Sortudo"};
 
     public Tabuleiro(ArrayList<Jogador> jogadores) { 
         this.tabuleiroJogado = new ArrayList<>();
         this.jogadores = jogadores; 
-        this.casasPularRodada = Arrays.asList(10, 25, 38);
+        Arrays.asList(10, 25, 38);
     }
 
     public void criacaoDoTabuleiro(int quantidade) {
@@ -118,7 +117,7 @@ public class Tabuleiro {
     
                 int novaPosicao = posicaoAntiga + resultado.getSoma();
                 if (novaPosicao > 39) {
-                    novaPosicao = 39;  // Ajusta para a última casa válida
+                    novaPosicao = 39;  
                 }
                 System.out.println("\n Nova posição calculada para o jogador " + jogadores.get(a).getCor() + ": " + novaPosicao);
     
@@ -160,7 +159,7 @@ public class Tabuleiro {
         System.out.println("Posições dos jogadores:");
         for (int i = 0; i < jogadores.size(); i++) {
             Jogador jogador = jogadores.get(i);
-            System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa() + " numero de jogadas : "+ jogador.getNumeroDeJogadas());
+            System.out.println((i + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa() + " - numero de jogadas : "+ jogador.getNumeroDeJogadas());
         }
     }
     
@@ -240,7 +239,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
 
 
 
-    // errinho aqui na questao de quando as vezes voltamos um jogador , outro vai para o inicio , mas apenas na impressao , provavelmente na ultima linha 
+   
     private void escolherCompetidorVoltarInicio(Jogador jogador) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Escolha um competidor para voltar ao início:");
@@ -290,7 +289,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
         for (Jogador jogador : jogadores) {
             tipos.add(jogador.getTipo());
         }
-        // Verifica se há pelo menos dois tipos diferentes
+        // Verifica se tem pelo menos dois tipos diferentes
         return tipos.size() > 1;
     }
 

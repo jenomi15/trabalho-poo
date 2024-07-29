@@ -21,7 +21,7 @@ public class JogadorNormal extends Jogador {
         // Exibindo o resultado dos dados
         System.out.println("O dado 1 rolou: " + dado1);
         System.out.println("O dado 2 rolou: " + dado2);
-        
+        System.out.println("a soma dos dados : "+ soma );
         // Verificando se os dados são iguais
         boolean iguais = (dado1 == dado2);
         

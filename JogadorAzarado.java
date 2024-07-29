@@ -22,6 +22,7 @@ public class JogadorAzarado extends Jogador {
 
         System.out.println("O dado 1 rolou: " + dado1);
         System.out.println("O dado 2 rolou: " + dado2);
+        System.out.println("a soma dos dados  : "+ soma );
         boolean iguais = (dado1 == dado2);
         return new ResultadoDados(soma, iguais);
     }

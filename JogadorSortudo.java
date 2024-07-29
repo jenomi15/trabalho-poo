@@ -22,10 +22,10 @@ public class JogadorSortudo extends Jogador {
             // Exibindo o resultado dos dados
             System.out.println("O dado 1 rolou: " + dado1);
             System.out.println("O dado 2 rolou: " + dado2);
-        
+            System.out.println("a soma dos dados : "+ soma );
         } while (soma < 6); // Continua rolando até a soma ser maior ou igual a 6
         
-        // Verificando se os dados são iguais
+        
         boolean iguais = (dado1 == dado2);
         
         // Retornando o resultado
