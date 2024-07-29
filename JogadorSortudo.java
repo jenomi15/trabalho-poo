@@ -34,7 +34,7 @@ public class JogadorSortudo extends Jogador {
 
     @Override
     public String toString() {
-        // Fornecendo uma representação textual clara
+        
         return "Jogador Sortudo: cor=" + getCor() + ", numeroCasa=" + getNumeroCasa();
     }
 }

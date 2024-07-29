@@ -18,7 +18,7 @@ public class JogadorAzarado extends Jogador {
             dado1 = (int) (Math.random() * 6) + 1;
             dado2 = (int) (Math.random() * 6) + 1;
             soma = dado1 + dado2;
-        } while (soma > 6); // Garante que a soma nunca seja maior que 6
+        } while (soma > 6); // Garante que a soma nunca seja maior que 6 , como o jgador azarado quer
 
         System.out.println("O dado 1 rolou: " + dado1);
         System.out.println("O dado 2 rolou: " + dado2);

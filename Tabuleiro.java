@@ -18,7 +18,7 @@ public class Tabuleiro {
     public Tabuleiro(ArrayList<Jogador> jogadores) { 
         this.tabuleiroJogado = new ArrayList<>();
         this.jogadores = jogadores; 
-        Arrays.asList(10, 25, 38);
+        //Arrays.asList(10, 25, 38);
     }
 
     public void criacaoDoTabuleiro(int quantidade) {
@@ -52,7 +52,7 @@ public class Tabuleiro {
     public void TurnoDoJogo() {
         Scanner teclado1 = new Scanner(System.in);
         int quantidadeDeJogadores = jogadores.size();
-        int y = 1; // Inicializa y com um valor apropriado
+        int y = 1; 
         
         do {
             boolean tiposDiversos;
@@ -71,11 +71,11 @@ public class Tabuleiro {
 
                     }while(tipoJogador < 1 || tipoJogador > 3);
                 }
-                    // Troca o tipo do jogador usando o método TrocaJogador
+                    
                     TrocaJogador(jogadores.get(o), tipoJogador, o);
                 }
 
-                // Verifica a diversidade de tipos de jogadores
+                // Verifica os tipos diffs de  jogadores
                 if (!verificarDiversidadeTipos()) {
                     tiposDiversos = false;
                     System.out.println("Os tipos de jogadores não são diversos o suficiente. " +
@@ -99,7 +99,7 @@ public class Tabuleiro {
                         Jogador jogador = jogadores.get(w);
                         System.out.println((w + 1) + "º lugar: Jogador " + jogador.getCor() + " - Casa " + jogador.getNumeroCasa());
                     }
-                    return; // Sai do método se o jogo terminou
+                    return; // vaza do metodo se o se o jogo terminou
                 }
 
 
@@ -146,7 +146,7 @@ public class Tabuleiro {
                 }
             }
     
-            y++; // aumenta o número da rodada
+            y++; // aumenta o número da rodada , so pra deixar a impressao melhor
         } while (!jogoTerminou());
     
         Collections.sort(jogadores, new Comparator<Jogador>() {
@@ -189,7 +189,7 @@ public class Tabuleiro {
                 return;
         }
     
-        // troca o jogador atual pelo novo jogador na lista
+        // troca o jogador da lista pelo novo tipo q o cara selecionar
         int index = jogadores.indexOf(jogador);
         if (index != -1) {
             jogadores.set(index, novoJogador);
@@ -289,7 +289,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
         for (Jogador jogador : jogadores) {
             tipos.add(jogador.getTipo());
         }
-        // Verifica se tem pelo menos dois tipos diferentes
+        
         return tipos.size() > 1;
     }
 
@@ -305,7 +305,7 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
     }
 
     private boolean jogoTerminou() {
-        // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo , E POR ALGUM MOTIVO NA ULTIMA VEZ QUE EU RODEI NAO GANHOU QND PASSOU DO LIMITE
+        // Verifica se algum jogador atingiu o final do tabuleiro para determinar o término do jogo , E POR ALGUM MOTIVO NA ULTIMA VEZ QUE EU RODEI NAO GANHOU QND PASSOU DO LIMITE // resolvido
         for (Jogador jogador : jogadores) {
             if (jogador.getNumeroCasa() >= tabuleiroJogado.size() - 1 ) {
                 System.out.println("O jogador " + jogador.getCor() + " venceu!");
@@ -313,6 +313,9 @@ private Jogador escolherAleatoriamente(List<Jogador> jogadores) {
             }
         }
         return false;
+
+
+
     }
 }
-
+// fim
